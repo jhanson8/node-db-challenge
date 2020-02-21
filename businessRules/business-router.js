@@ -25,9 +25,19 @@ router.get("/resources", (req, res) => {
     });
 });
 
-router.get("/tasks/:id", (req, res) => {
-  const { project_id } = req.params;
-  Business.getTasksWithProject(project_id)
+router.get("/tasks", (req, res) => {
+  Business.getTasks()
+    .then(tasks => {
+      res.json(tasks);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get tasks" });
+    });
+});
+
+router.get("/tasksProject", (req, res) => {
+  // const { project_id } = req.params;
+  Business.getTasksWithProject()
     .then(tasks => {
       res.json(tasks);
     })

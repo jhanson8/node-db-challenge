@@ -12,16 +12,18 @@ module.exports = {
   getTasksWithProject
 };
 
-function getTasksWithProject(project_id) {
-  return db("tasks as t")
-    .select(
-      "project.name",
-      "project.description",
-      "t.description",
-      "t.completed"
-    )
-    .where({ project_id })
-    .join("projects", "projects.id", "t.project_id");
+function getTasksWithProject() {
+  return (
+    db("tasks as t")
+      .select(
+        "project.name",
+        "project.description",
+        "t.description",
+        "t.completed"
+      )
+      // .where({ project_id })
+      .join("projects", "projects.id", "t.project_id")
+  );
 }
 
 function findById(id) {
